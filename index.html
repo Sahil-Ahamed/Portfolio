@@ -2486,7 +2486,7 @@ skillProgressBars.forEach(bar => {
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
 }
-// Updated Certificate Modal Functions for Images and PDFs - FIXED DISPLAY
+// Updated Certificate Modal Functions for Images and PDFs
 function openCertificate(certId) {
     const modal = document.getElementById('certModal');
     const modalContentWrapper = document.getElementById('modalContentWrapper');
@@ -2508,23 +2508,16 @@ function openCertificate(certId) {
         pdfEmbed.allowFullscreen = true;
         modalContentWrapper.appendChild(pdfEmbed);
     } else {
-        // Create image element with proper sizing
+        // Create image element
         const img = document.createElement('img');
         img.src = fileSrc;
         img.alt = certImage.alt;
         img.className = 'cert-modal-img';
-        
-        // Add loading state
-        img.style.opacity = '0';
-        img.onload = function() {
-            img.style.opacity = '1';
-        };
-        
         modalContentWrapper.appendChild(img);
     }
     
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
     
     // Ensure cursor stays visible
     const cursor = document.querySelector('.cursor');
@@ -2538,17 +2531,42 @@ function openCertificate(certId) {
 function closeCertificate() {
     const modal = document.getElementById('certModal');
     modal.classList.remove('active');
-    document.body.style.overflow = '';
+    document.body.style.overflow = ''; // Re-enable scrolling
     
     // Reset cursor z-index
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
     cursor.style.zIndex = '9999';
     cursorFollower.style.zIndex = '9999';
-}   </script>
+}
+// Close modal when clicking outside the image
+document.getElementById('certModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeCertificate();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCertificate();
+    }
+});
+
+// Ensure cursor works on modal close button
+document.querySelector('.cert-modal-close').addEventListener('mouseenter', function() {
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+});
+
+document.querySelector('.cert-modal-close').addEventListener('mouseleave', function() {
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+});    </script>
 </body>
 
 </html>
-
-
-
