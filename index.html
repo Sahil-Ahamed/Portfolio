@@ -1407,7 +1407,7 @@ body.light-mode .form-group textarea:focus {
     transform: scale(1.05);
 }
 
-/* Certificate Modal Styles - UPDATED */
+/* Updated Certificate Modal Styles */
 .cert-modal {
     display: none;
     position: fixed;
@@ -1421,6 +1421,7 @@ body.light-mode .form-group textarea:focus {
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    padding: 2rem;
 }
 
 .cert-modal.active {
@@ -1434,6 +1435,9 @@ body.light-mode .form-group textarea:focus {
     position: relative;
     transform: scale(0.7);
     transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cert-modal.active .cert-modal-content {
@@ -1442,15 +1446,26 @@ body.light-mode .form-group textarea:focus {
 
 .cert-modal-img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    object-fit: contain; /* This ensures the image maintains aspect ratio */
+}
+
+.cert-modal-pdf {
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 800px;
+    border: none;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .cert-modal-close {
     position: absolute;
-    top: -40px;
-    right: -40px;
+    top: -50px;
+    right: -50px;
     background: var(--accent);
     border: none;
     border-radius: 50%;
@@ -1464,12 +1479,36 @@ body.light-mode .form-group textarea:focus {
     color: var(--bg-primary);
     font-size: 1.2rem;
     font-weight: bold;
-    z-index: 10002; /* Higher than modal */
+    z-index: 10002;
 }
 
 .cert-modal-close:hover {
     background: #00FFC8;
     transform: rotate(90deg);
+}
+
+/* Mobile adjustments for close button */
+@media (max-width: 768px) {
+    .cert-modal-close {
+        top: -50px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .cert-modal {
+        padding: 1rem;
+    }
+    
+    .cert-modal-content {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    .cert-modal-pdf {
+        width: 95vw;
+        height: 70vh;
+    }
 }
 
 /* Ensure cursor is visible over modal */
@@ -2570,3 +2609,4 @@ document.querySelector('.cert-modal-close').addEventListener('mouseleave', funct
 </body>
 
 </html>
+
